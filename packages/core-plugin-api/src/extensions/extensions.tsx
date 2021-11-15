@@ -142,7 +142,7 @@ export function createReactExtension<
 
         return (
           <PluginProvider
-            plugin={plugin}
+            pluginId={plugin.getId()}
             extensionName={options.name}
             routeRef={mountPoint?.id}
           >
