@@ -77,5 +77,5 @@ export type AuthorizeResponse =
   | { result: AuthorizeResult.ALLOW | AuthorizeResult.DENY }
   | {
       result: AuthorizeResult.CONDITIONAL;
-      conditions: PermissionCriteria<unknown>;
+      conditions: PermissionCriteria<PermissionCondition>;
     };
