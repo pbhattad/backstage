@@ -31,9 +31,15 @@ import {
   AnyApiFactory,
   configApiRef,
   createApiFactory,
+  discoveryApiRef,
   errorApiRef,
   githubAuthApiRef,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
+import {
+  IdentityPermissionApi,
+  permissionApiRef,
+} from '@backstage/plugin-permission';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
@@ -64,4 +70,19 @@ export const apis: AnyApiFactory[] = [
   }),
 
   createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
+
+  createApiFactory({
+    api: permissionApiRef,
+    deps: {
+      configApi: configApiRef,
+      discoveryApi: discoveryApiRef,
+      identityApi: identityApiRef,
+    },
+    factory: ({ configApi, discoveryApi, identityApi }) =>
+      new IdentityPermissionApi({
+        discoveryApi,
+        identityApi,
+        enabled: configApi.getOptionalBoolean('permission.enabled'),
+      }),
+  }),
 ];

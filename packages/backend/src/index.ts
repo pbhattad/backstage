@@ -62,7 +62,10 @@ function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
   const discovery = SingleHostDiscovery.fromConfig(config);
-  const permissions = new PermissionClient({ discoveryApi: discovery });
+  const permissions = new PermissionClient({
+    discoveryApi: discovery,
+    enabled: config.getOptionalBoolean('permission.enabled'),
+  });
 
   root.info(`Created UrlReader ${reader}`);
 

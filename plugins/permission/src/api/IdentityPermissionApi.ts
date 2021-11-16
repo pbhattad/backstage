@@ -24,12 +24,18 @@ import { PermissionApi } from './PermissionApi';
 
 export class IdentityPermissionApi implements PermissionApi {
   private readonly permissionClient: PermissionClient;
+  private readonly identityApi: IdentityApi;
 
-  constructor(
-    discoveryApi: DiscoveryApi,
-    private readonly identityApi: IdentityApi,
-  ) {
-    this.permissionClient = new PermissionClient({ discoveryApi });
+  constructor(options: {
+    discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
+    enabled?: boolean;
+  }) {
+    this.identityApi = options.identityApi;
+    this.permissionClient = new PermissionClient({
+      discoveryApi: options.discoveryApi,
+      enabled: options.enabled ?? false,
+    });
   }
 
   async authorize(

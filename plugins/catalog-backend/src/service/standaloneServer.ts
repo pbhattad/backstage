@@ -47,6 +47,7 @@ export async function startStandaloneServer(
   const discoveryApi = SingleHostDiscovery.fromConfig(config);
   const permissions = new PermissionClient({
     discoveryApi,
+    enabled: config.getOptionalBoolean('permission.enabled'),
   });
 
   logger.debug('Creating application...');

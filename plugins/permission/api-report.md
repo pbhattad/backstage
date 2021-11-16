@@ -34,7 +34,11 @@ export class AsyncPermissionResult {
 //
 // @public (undocumented)
 export class IdentityPermissionApi implements PermissionApi {
-  constructor(discoveryApi: DiscoveryApi, identityApi: IdentityApi);
+  constructor(options: {
+    discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
+    enabled?: boolean;
+  });
   // (undocumented)
   authorize(
     requests: Array<AuthorizeRequest>,
