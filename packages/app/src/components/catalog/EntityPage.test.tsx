@@ -15,7 +15,7 @@
  */
 
 import { ApiProvider, ApiRegistry } from '@backstage/core-app-api';
-import { permissionApiRef } from '@backstage/core-plugin-api';
+import { permissionApiRef } from '@backstage/plugin-permission';
 import { EntityLayout } from '@backstage/plugin-catalog';
 import {
   DefaultStarredEntitiesApi,

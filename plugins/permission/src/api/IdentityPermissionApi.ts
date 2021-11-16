@@ -14,28 +14,29 @@
  * limitations under the License.
  */
 
-import { PermissionApi } from '@backstage/plugin-permission';
+import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
 import {
   AuthorizeRequest,
   AuthorizeResponse,
-  AuthorizeResult,
+  PermissionClient,
 } from '@backstage/plugin-permission-common';
+import { PermissionApi } from './PermissionApi';
 
-/**
- * Mock implementation of {@link core-plugin-api#PermissionApi}. Supply a
- * requestHandler function to override the mock result returned for a given
- * request.
- * @public
- */
-export class MockPermissionApi implements PermissionApi {
+export class IdentityPermissionApi implements PermissionApi {
+  private readonly permissionClient: PermissionClient;
+
   constructor(
-    private readonly requestHandler: (
-      request: AuthorizeRequest,
-    ) => AuthorizeResult.ALLOW | AuthorizeResult.DENY = () =>
-      AuthorizeResult.ALLOW,
-  ) {}
+    discoveryApi: DiscoveryApi,
+    private readonly identityApi: IdentityApi,
+  ) {
+    this.permissionClient = new PermissionClient({ discoveryApi });
+  }
 
-  async authorize(requests: AuthorizeRequest[]): Promise<AuthorizeResponse[]> {
-    return requests.map(request => ({ result: this.requestHandler(request) }));
+  async authorize(
+    requests: Array<AuthorizeRequest>,
+  ): Promise<Array<AuthorizeResponse>> {
+    return await this.permissionClient.authorize(requests, {
+      token: await this.identityApi.getIdToken(),
+    });
   }
 }

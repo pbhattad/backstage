@@ -35,7 +35,7 @@ import {
   useHotMemoize,
 } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
-import { PermissionClient } from '@backstage/permission-common';
+import { PermissionClient } from '@backstage/plugin-permission-common';
 import healthcheck from './plugins/healthcheck';
 import { metricsInit, metricsHandler } from './metrics';
 import auth from './plugins/auth';

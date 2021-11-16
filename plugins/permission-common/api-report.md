@@ -21,7 +21,7 @@ export type AuthorizeResponse =
     }
   | {
       result: AuthorizeResult.CONDITIONAL;
-      conditions: PermissionCriteria<unknown>;
+      conditions: PermissionCriteria<PermissionCondition>;
     };
 
 // @public
@@ -34,6 +34,13 @@ export enum AuthorizeResult {
 // @public
 export type DiscoveryApi = {
   getBaseUrl(pluginId: string): Promise<string>;
+};
+
+// Warning: (ae-missing-release-tag) "Identified" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Identified<T> = T & {
+  id: string;
 };
 
 // @public
@@ -62,7 +69,7 @@ export type PermissionAttributes = {
 
 // @public
 export class PermissionClient {
-  constructor(options: { discoveryApi: DiscoveryApi });
+  constructor(options: { discoveryApi: DiscoveryApi; enabled?: boolean });
   authorize(
     requests: AuthorizeRequest[],
     options?: AuthorizeRequestOptions,

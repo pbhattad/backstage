@@ -17,11 +17,7 @@
 import { CatalogApi } from '@backstage/catalog-client';
 import { Entity } from '@backstage/catalog-model';
 import { ApiProvider, ApiRegistry } from '@backstage/core-app-api';
-import {
-  AlertApi,
-  alertApiRef,
-  permissionApiRef,
-} from '@backstage/core-plugin-api';
+import { AlertApi, alertApiRef } from '@backstage/core-plugin-api';
 import {
   AsyncEntityProvider,
   catalogApiRef,
@@ -30,6 +26,7 @@ import {
   entityRouteRef,
   starredEntitiesApiRef,
 } from '@backstage/plugin-catalog-react';
+import { permissionApiRef } from '@backstage/plugin-permission';
 import {
   MockPermissionApi,
   MockStorageApi,

@@ -20,9 +20,9 @@ import {
 } from '@backstage/plugin-auth-backend';
 import {
   AuthorizeResult,
-  OpaqueAuthorizeRequest,
-  TechDocsPermission,
-} from '@backstage/permission-common';
+  AuthorizeRequest,
+  isReadPermission,
+} from '@backstage/plugin-permission-common';
 import {
   PermissionPolicy,
   conditionFor,
@@ -40,15 +40,9 @@ const isComponentType = conditionFor(isComponentTypeRule);
 
 export class SimplePermissionPolicy implements PermissionPolicy {
   async handle(
-    request: OpaqueAuthorizeRequest,
+    request: AuthorizeRequest,
     identity?: BackstageIdentity,
   ): Promise<PolicyResult> {
-    if (TechDocsPermission.includes(request.permission)) {
-      return {
-        result: AuthorizeResult.DENY,
-      };
-    }
-
     if (request.permission.resourceType === RESOURCE_TYPE_CATALOG_ENTITY) {
       if (!identity) {
         return {
@@ -56,9 +50,9 @@ export class SimplePermissionPolicy implements PermissionPolicy {
         };
       }
 
-      if (request.permission.isRead) {
+      if (isReadPermission(request.permission)) {
         return {
-          result: AuthorizeResult.MAYBE,
+          result: AuthorizeResult.CONDITIONAL,
           conditions: createCatalogConditions({
             anyOf: [
               {
@@ -76,7 +70,7 @@ export class SimplePermissionPolicy implements PermissionPolicy {
       }
 
       return {
-        result: AuthorizeResult.MAYBE,
+        result: AuthorizeResult.CONDITIONAL,
         conditions: createCatalogConditions({
           anyOf: [
             {

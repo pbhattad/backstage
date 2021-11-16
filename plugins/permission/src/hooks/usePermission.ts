@@ -15,8 +15,12 @@
  */
 
 import { useAsync } from 'react-use';
-import { permissionApiRef, useApi } from '@backstage/core-plugin-api';
-import { AuthorizeResult, Permission } from '@backstage/permission-common';
+import { useApi } from '@backstage/core-plugin-api';
+import {
+  AuthorizeResult,
+  Permission,
+} from '@backstage/plugin-permission-common';
+import { permissionApiRef } from '../api/PermissionApi';
 
 export class AsyncPermissionResult {
   constructor(

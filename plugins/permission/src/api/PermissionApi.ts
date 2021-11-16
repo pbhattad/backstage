@@ -14,32 +14,18 @@
  * limitations under the License.
  */
 
-import {
-  DiscoveryApi,
-  IdentityApi,
-  PermissionApi,
-} from '@backstage/core-plugin-api';
+import { ApiRef, createApiRef } from '@backstage/core-plugin-api';
 import {
   AuthorizeRequest,
   AuthorizeResponse,
-  PermissionClient,
-} from '@backstage/permission-common';
+} from '@backstage/plugin-permission-common';
 
-export class IdentityPermissionApi implements PermissionApi {
-  private readonly permissionClient: PermissionClient;
-
-  constructor(
-    discoveryApi: DiscoveryApi,
-    private readonly identityApi: IdentityApi,
-  ) {
-    this.permissionClient = new PermissionClient({ discoveryApi });
-  }
-
-  async authorize(
+export type PermissionApi = {
+  authorize(
     requests: Array<AuthorizeRequest>,
-  ): Promise<Array<AuthorizeResponse>> {
-    return await this.permissionClient.authorize(requests, {
-      token: await this.identityApi.getIdToken(),
-    });
-  }
-}
+  ): Promise<Array<AuthorizeResponse>>;
+};
+
+export const permissionApiRef: ApiRef<PermissionApi> = createApiRef({
+  id: 'plugin.permission',
+});

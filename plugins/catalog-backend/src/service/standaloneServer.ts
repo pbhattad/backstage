@@ -23,7 +23,7 @@ import {
 } from '@backstage/backend-common';
 import { Server } from 'http';
 import { Logger } from 'winston';
-import { PermissionClient } from '@backstage/permission-common';
+import { PermissionClient } from '@backstage/plugin-permission-common';
 import { DatabaseManager } from '../legacy/database';
 import { CatalogBuilder } from '../legacy/service/CatalogBuilder';
 import { createRouter } from '../legacy/service';

@@ -15,7 +15,7 @@
  */
 
 import {
-  CatalogPermission,
+  catalogEntityReadPermission,
   Entity,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
@@ -23,7 +23,7 @@ import { InputError, NotFoundError } from '@backstage/errors';
 import {
   AuthorizeResult,
   PermissionClient,
-} from '@backstage/permission-common';
+} from '@backstage/plugin-permission-common';
 import { Knex } from 'knex';
 import {
   EntitiesCatalog,
@@ -182,7 +182,7 @@ export class NextEntitiesCatalog implements EntitiesCatalog {
     if (authorize) {
       const authorizeResponse = (
         await this.permissionApi.authorize(
-          [{ permission: CatalogPermission.ENTITY_READ }],
+          [{ permission: catalogEntityReadPermission }],
           {
             token: request?.authorizationToken,
           },
@@ -194,7 +194,7 @@ export class NextEntitiesCatalog implements EntitiesCatalog {
           entities: [],
           pageInfo: { hasNextPage: false },
         };
-      } else if (authorizeResponse.result === AuthorizeResult.MAYBE) {
+      } else if (authorizeResponse.result === AuthorizeResult.CONDITIONAL) {
         entitiesQuery = parseFilter(
           toQuery(authorizeResponse.conditions),
           entitiesQuery,

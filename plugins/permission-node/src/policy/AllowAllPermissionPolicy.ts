@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 import {
+  AuthorizeRequest,
   AuthorizeResult,
-  OpaqueAuthorizeRequest,
-} from '@backstage/permission-common';
+} from '@backstage/plugin-permission-common';
 import { BackstageIdentity } from '@backstage/plugin-auth-backend';
 import { PermissionPolicy, PolicyResult } from './types';
 
 export class AllowAllPermissionPolicy implements PermissionPolicy {
   async handle(
-    _request: OpaqueAuthorizeRequest,
+    _request: AuthorizeRequest,
     _user?: BackstageIdentity,
   ): Promise<PolicyResult> {
     return {

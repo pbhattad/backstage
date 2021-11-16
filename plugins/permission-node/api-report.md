@@ -10,6 +10,17 @@ import { PermissionCondition } from '@backstage/plugin-permission-common';
 import { PermissionCriteria } from '@backstage/plugin-permission-common';
 import { Router } from 'express';
 
+// Warning: (ae-missing-release-tag) "AllowAllPermissionPolicy" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export class AllowAllPermissionPolicy implements PermissionPolicy {
+  // (undocumented)
+  handle(
+    _request: AuthorizeRequest,
+    _user?: BackstageIdentity,
+  ): Promise<PolicyResult>;
+}
+
 // @public
 export type ApplyConditionsRequest = {
   resourceRef: string;

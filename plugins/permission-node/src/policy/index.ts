@@ -19,3 +19,4 @@ export type {
   PermissionPolicy,
   PolicyResult,
 } from './types';
+export * from './AllowAllPermissionPolicy';

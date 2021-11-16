@@ -26,9 +26,9 @@ import { Location as Location_2 } from '@backstage/catalog-model';
 import { LocationSpec } from '@backstage/catalog-model';
 import { Logger as Logger_2 } from 'winston';
 import { Organizations } from 'aws-sdk';
-import { PermissionClient } from '@backstage/permission-common';
-import { PermissionCondition } from '@backstage/permission-common';
-import { PermissionCriteria } from '@backstage/permission-common';
+import { PermissionClient } from '@backstage/plugin-permission-common';
+import { PermissionCondition } from '@backstage/plugin-permission-common';
+import { PermissionCriteria } from '@backstage/plugin-permission-common';
 import { PermissionRule } from '@backstage/plugin-permission-node';
 import { PluginDatabaseManager } from '@backstage/backend-common';
 import { PluginEndpointDiscovery } from '@backstage/backend-common';
@@ -519,11 +519,11 @@ export const conditions: {
 //
 // @public (undocumented)
 export const createConditions: (
-  conditions: PermissionCriteria<PermissionCondition<any>>,
+  conditions: PermissionCriteria<PermissionCondition<unknown[]>>,
 ) => {
   pluginId: string;
   resourceType: string;
-  conditions: PermissionCriteria<PermissionCondition<any>>;
+  conditions: PermissionCriteria<PermissionCondition<unknown[]>>;
 };
 
 // Warning: (ae-missing-release-tag) "CreateDatabaseOptions" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -908,6 +908,9 @@ export type EntityFilter =
     }
   | {
       anyOf: EntityFilter[];
+    }
+  | {
+      not: EntityFilter;
     }
   | EntitiesSearchFilter;
 
@@ -1493,7 +1496,7 @@ export interface RefreshService {
 //
 // @public (undocumented)
 export const registerPermissionRule: (
-  rule: PermissionRule<Entity, EntitiesSearchFilter, any>,
+  rule: PermissionRule<Entity, EntitiesSearchFilter, unknown[]>,
 ) => void;
 
 // Warning: (ae-missing-release-tag) "relation" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -1584,9 +1587,9 @@ export class UrlReaderProcessor implements CatalogProcessor {
 
 // Warnings were encountered during analysis:
 //
-// src/catalog/types.d.ts:98:8 - (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
-// src/catalog/types.d.ts:99:8 - (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
 // src/catalog/types.d.ts:100:8 - (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
+// src/catalog/types.d.ts:101:8 - (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
+// src/catalog/types.d.ts:102:8 - (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
 // src/ingestion/processors/GithubMultiOrgReaderProcessor.d.ts:23:9 - (ae-forgotten-export) The symbol "GithubMultiOrgConfig" needs to be exported by the entry point index.d.ts
 // src/ingestion/types.d.ts:8:8 - (tsdoc-param-tag-missing-hyphen) The @param block should be followed by a parameter name and then a hyphen
 // src/legacy/database/types.d.ts:98:8 - (tsdoc-param-tag-missing-hyphen) The @param block should be followed by a parameter name and then a hyphen

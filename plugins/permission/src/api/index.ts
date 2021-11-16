@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  AuthorizeRequest,
-  AuthorizeResponse,
-} from '@backstage/permission-common';
-import { ApiRef, createApiRef } from '../system';
-
-export type PermissionApi = {
-  authorize(
-    requests: Array<AuthorizeRequest>,
-  ): Promise<Array<AuthorizeResponse>>;
-};
-
-export const permissionApiRef: ApiRef<PermissionApi> = createApiRef({
-  id: 'plugin.permission',
-});
+export { permissionApiRef } from './PermissionApi';
+export type { PermissionApi } from './PermissionApi';
+export * from './IdentityPermissionApi';
