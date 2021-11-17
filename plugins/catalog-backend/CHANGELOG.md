@@ -1,5 +1,16 @@
 # @backstage/plugin-catalog-backend
 
+## 0.17.4
+
+### Patch Changes
+
+- 06934f2f52: Adjust entity query construction to ensure sub-queries are always isolated from one another.
+- b90fc74d70: adds getDefaultProcessor method to CatalogBuilder
+- Updated dependencies
+  - @backstage/catalog-client@0.5.2
+  - @backstage/catalog-model@0.9.7
+  - @backstage/backend-common@0.9.10
+
 ## 0.17.3
 
 ### Patch Changes
